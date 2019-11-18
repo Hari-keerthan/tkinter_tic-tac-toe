@@ -9,6 +9,10 @@ global bclick,drw
 blclick = True
 drw = 1
 
+
+
+            
+
 btn1 = tk.Button(window,text='',fg='black', height=3, width=15 , command = lambda : btnclick(btn1)) 
 btn1.grid(column=0,row=1)
 btn2 = tk.Button(window,text='',fg='black', height=3, width=15, command = lambda  : btnclick(btn2)) 
@@ -39,6 +43,7 @@ def reset():
     btn7['text'] = ''
     btn8['text'] = ''
     btn9['text'] = ''
+  
     bclick = True
     lbl = tk.Label(window, text='Player 1 turn')
     lbl.grid(column = 1 , row = 6)
@@ -49,34 +54,27 @@ def reset():
     lbl.grid(column = 2 , row = 8)
     butt_chnge_state('active')
 
-def chkwin(): 
-    print(btn1['text'])
-    if(	btn1['text'] == 'X' and btn2['text'] == 'X' and btn3['text'] == 'X' or 
-	btn4['text'] == 'X' and btn5['text'] == 'X' and btn6['text'] == 'X' or  
-	btn7['text'] == 'X' and btn8['text'] == 'X' and btn9['text'] == 'X' or  
-	btn1['text'] == 'X' and btn5['text'] == 'X' and btn9['text'] == 'X' or  
-	btn3['text'] == 'X' and btn5['text'] == 'X' and btn7['text'] == 'X' or  
-	btn1['text'] == 'X' and btn4['text'] == 'X' and btn7['text'] == 'X' or  
-	btn2['text'] == 'X' and btn5['text'] == 'X' and btn8['text'] == 'X' or  
-	btn3['text'] == 'X' and btn6['text'] == 'X' and btn9['text'] == 'X'):
-        lbl = tk.Label(window, text='player 1 won')
-        lbl.grid(column = 2 , row = 6)
-        lbl = tk.Label(window, text='player 2 lost')
-        lbl.grid(column = 2 , row = 8)
-        butt_chnge_state('disable')
-    elif (btn1['text'] == 'O' and btn2['text'] == 'O' and btn3['text'] == 'O' or 
-	btn4['text'] == 'O' and btn5['text'] == 'O' and btn6['text'] == 'O' or  
-	btn7['text'] == 'O' and btn8['text'] == 'O' and btn9['text'] == 'O' or  
-	btn1['text'] == 'O' and btn5['text'] == 'O' and btn9['text'] == 'O' or  
-	btn3['text'] == 'O' and btn5['text'] == 'O' and btn7['text'] == 'O' or  
-	btn1['text'] == 'O' and btn4['text'] == 'O' and btn7['text'] == 'O' or  
-	btn2['text'] == 'O' and btn5['text'] == 'O' and btn8['text'] == 'O' or  
-	btn3['text'] == 'O' and btn6['text'] == 'O' and btn9['text'] == 'O'):
-        lbl = tk.Label(window, text='player 2 won')
-        lbl.grid(column = 2 , row = 6)
-        lbl = tk.Label(window, text='player 1 lost')
-        lbl.grid(column = 2 , row = 8)
-        butt_chnge_state('disable')
+def chkwin(letter): 
+    if(	btn1['text'] == letter and btn2['text'] == letter and btn3['text'] == letter or 
+	btn4['text'] == letter and btn5['text'] == letter and btn6['text'] == letter or  
+	btn7['text'] == letter and btn8['text'] == letter and btn9['text'] == letter or  
+	btn1['text'] == letter and btn5['text'] == letter and btn9['text'] == letter or  
+	btn3['text'] == letter and btn5['text'] == letter and btn7['text'] == letter or  
+	btn1['text'] == letter and btn4['text'] == letter and btn7['text'] == letter or  
+	btn2['text'] == letter and btn5['text'] == letter and btn8['text'] == letter or  
+	btn3['text'] == letter and btn6['text'] == letter and btn9['text'] == letter):
+        if letter == 'X':
+            lbl = tk.Label(window, text='player 1 won')
+            lbl.grid(column = 2 , row = 6)
+            lbl = tk.Label(window, text='player 2 lost')
+            lbl.grid(column = 2 , row = 8)
+            butt_chnge_state('disable')
+        elif letter == 'O':
+            lbl = tk.Label(window, text='player 2 won')
+            lbl.grid(column = 2 , row = 6)
+            lbl = tk.Label(window, text='player 1 lost')
+            lbl.grid(column = 2 , row = 8)
+            butt_chnge_state('disable')
     else :
         if drw == 10:
             lbl = tk.Label(window, text='its a draw')
@@ -105,21 +103,21 @@ def btnclick(butt):
             lbl = tk.Label(window, text='Player 2 turn')
             lbl.grid(column = 1 , row = 6)
             drw = drw + 1
-            chkwin()
+            chkwin('X')
     elif butt['text'] == '' and bclick == False:
             butt['text'] = 'O'
             bclick = True
             lbl = tk.Label(window, text='Player 1 turn')
             lbl.grid(column = 1 , row = 6)
             drw = drw + 1
-            chkwin()
+            chkwin('O')
     else:
         messagebox.showinfo('tic tac toe','button already pressed')
 
  
         
 
-
+reset()
 lbl = tk.Label(window, text ='tic tac toe',font=('',30))
 lbl.grid(column = 1 , row =0)
 lbl = tk.Label(window, text='Player 1 turn')
